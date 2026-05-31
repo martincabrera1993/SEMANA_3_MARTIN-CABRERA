@@ -1,0 +1,58 @@
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
+
+public class ClientesController : Controller
+{
+    static List<Cliente> lista = new List<Cliente>();
+
+    public IActionResult Index()
+    {
+        return View(lista);
+    }
+
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult Create(Cliente c)
+    {
+        c.Id = lista.Count + 1;
+        lista.Add(c);
+        return RedirectToAction("Index");
+    }
+
+    public IActionResult Edit(int id)
+    {
+        var c = lista.FirstOrDefault(x => x.Id == id);
+        return View(c);
+    }
+
+    [HttpPost]
+    public IActionResult Edit(Cliente c)
+    {
+        var cli = lista.FirstOrDefault(x => x.Id == c.Id);
+        if (cli != null)
+        {
+            lista.Remove(cli);
+            lista.Add(c);
+        }
+        return RedirectToAction("Index");
+    }
+
+    public IActionResult Delete(int id)
+    {
+        var c = lista.FirstOrDefault(x => x.Id == id);
+        return View(c);
+    }
+
+    [HttpPost]
+    public IActionResult Delete(Cliente c)
+    {
+        var cli = lista.FirstOrDefault(x => x.Id == c.Id);
+        if (cli != null) lista.Remove(cli);
+        return RedirectToAction("Index");
+    }
+}
