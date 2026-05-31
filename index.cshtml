@@ -1,0 +1,40 @@
+@model List<Cliente>
+
+<h2>Clientes</h2>
+<a href="/Clientes/Create">Nuevo</a>
+<table border="1">
+<tr><th>Nombre</th><th>Email</th><th></th></tr>
+@foreach(var c in Model){
+  <tr>
+    <th>Nombre</th>
+    <th>Apellido</th>
+    <th>Email</th>
+    <th>Teléfono</th>
+    <th>Dirección</th>
+    <th>Ciudad</th>
+    <th>País</th>
+    <th>Fecha Nacimiento</th>
+    <th>Estado Civil</th>
+    <th>Género</th>
+    <th></th>
+  </tr>
+  @foreach(var c in Model)
+  {
+    <tr>
+      <td>@c.Nombre</td>
+      <td>@c.Apellido</td>
+      <td>@c.Email</td>
+      <td>@c.Telefono</td>
+      <td>@c.Direccion</td>
+      <td>@c.Ciudad</td>
+      <td>@c.Pais</td>
+      <td>@c.FechaNacimiento.ToShortDateString()</td>
+      <td>@c.EstadoCivil</td>
+      <td>@c.Genero</td>
+      <td>
+        <a href="/Clientes/Edit/@c.Id">Editar</a>
+        <a href="/Clientes/Delete/@c.Id">Eliminar</a>
+      </td>
+    </tr>
+  }
+</table>
